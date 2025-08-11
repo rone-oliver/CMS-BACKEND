@@ -21,6 +21,9 @@ import { UserModule } from './user/user.module';
         DEVELOPMENT_CORS_ORIGIN: Joi.string().empty('').optional(),
         PRODUCTION_CORS_ORIGIN: Joi.string().empty('').optional(),
         PORT: Joi.number().port().default(3000),
+        JWT_REFRESH_EXPIRES: Joi.string().default('7d'),
+        JWT_ACCESS_EXPIRES: Joi.string().default('15m'),
+        JWT_SECRET: Joi.string().default('secretKey'),
       }),
     }),
     MongooseModule.forRootAsync({

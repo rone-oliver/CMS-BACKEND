@@ -5,5 +5,7 @@ export const AUTH_PATHS = {
   USER: {
     REGISTER: 'register',
     LOGIN: 'login',
+    REFRESH: 'refresh',
+    LOGOUT: 'logout',
   },
 };

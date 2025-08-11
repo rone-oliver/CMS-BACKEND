@@ -12,4 +12,5 @@ export interface IUserService {
     username?: string;
   }): Promise<UserResponseDto>;
   findByEmailForAuth(email: string): Promise<UserForAuth | null>;
+  profile(userId: string): Promise<UserResponseDto>;
 }

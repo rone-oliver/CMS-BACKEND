@@ -30,10 +30,11 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     allowedHeaders: 'Content-Type, Accept, Authorization',
+    exposedHeaders: 'WWW-Authenticate',
   });
 
   const config = new DocumentBuilder()
-    .setTitle('My API Title')
+    .setTitle('Content Management System')
     .setDescription('A description of my API')
     .setVersion('1.0')
     .addTag('my-api')

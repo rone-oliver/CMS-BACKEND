@@ -82,4 +82,15 @@ export class UserService implements IUserService {
       passwordHash: user.password,
     };
   }
+
+  async profile(userId: string): Promise<UserResponseDto> {
+    const user = await this._userRepository.find({ _id: userId });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    const plain = user.toObject();
+    return plainToInstance(UserResponseDto, plain, {
+      excludeExtraneousValues: true,
+    });
+  }
 }
