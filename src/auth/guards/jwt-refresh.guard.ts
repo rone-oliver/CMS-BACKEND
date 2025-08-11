@@ -15,21 +15,17 @@ function getErrorName(info: unknown): string | null {
 
 @Injectable()
 export class JwtRefreshGuard extends AuthGuard('jwt-refresh') {
-  // Match IAuthGuard signature while keeping internals type-safe.
-
-  handleRequest<
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    TUser = any,
-  >(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    err: any,
+  handleRequest<TUser = unknown>(
+    err: unknown,
     user: TUser,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    info: any,
+    info: unknown,
     context: ExecutionContext,
   ): TUser {
     const errorName = getErrorName(info);
-    const shouldTreatAsExpired = errorName === 'TokenExpiredError' || err || !user;
+    const hasErr = Boolean(err);
+    const isUserMissing = user == null;
+    const shouldTreatAsExpired =
+      errorName === 'TokenExpiredError' || hasErr || isUserMissing;
 
     if (shouldTreatAsExpired) {
       const res = context.switchToHttp().getResponse<Response>();

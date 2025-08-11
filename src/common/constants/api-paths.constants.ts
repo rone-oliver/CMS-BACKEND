@@ -3,5 +3,6 @@ export const API_PATHS = {
     PREFIX: 'api/v1',
     AUTH: 'auth',
     USER: 'users',
+    ARTICLE: 'articles',
   },
 };
