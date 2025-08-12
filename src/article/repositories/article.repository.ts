@@ -37,8 +37,12 @@ export class ArticleRepository implements IArticleRepository {
     filter: FilterQuery<ArticleDocument>,
     update: UpdateQuery<ArticleDocument>,
   ): Promise<ArticleDocument | null> {
+    const article = {
+      ...update,
+      userId: new Types.ObjectId(update.userId),
+    };
     return this._articleModel
-      .findOneAndUpdate(filter, update, { new: true })
+      .findOneAndUpdate(filter, article, { new: true })
       .exec();
   }
 
