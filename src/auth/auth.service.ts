@@ -56,7 +56,7 @@ export class AuthService implements IAuthService {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: this._configService.get<string>('NODE_ENV') === 'production',
-      path: '/api/v1/auth/refresh',
+      path: '/',
       sameSite: 'strict',
       maxAge: this._parseTimeToMs(
         this._configService.get<string>('JWT_REFRESH_EXPIRES')!,
@@ -70,7 +70,7 @@ export class AuthService implements IAuthService {
     res.clearCookie('refreshToken', {
       httpOnly: true,
       secure: this._configService.get<string>('NODE_ENV') === 'production',
-      path: '/api/v1/auth/refresh',
+      path: '/',
       sameSite: 'strict',
     });
     return new SuccessResponseDto({
