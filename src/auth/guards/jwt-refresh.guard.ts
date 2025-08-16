@@ -23,9 +23,15 @@ export class JwtRefreshGuard extends AuthGuard('jwt-refresh') {
   ): TUser {
     const errorName = getErrorName(info);
     const hasErr = Boolean(err);
-    const isUserMissing = user == null;
+    const isUserInvalid =
+      user == null ||
+      typeof user !== 'object' ||
+      Array.isArray(user) ||
+      !('id' in (user as Record<string, unknown>)) ||
+      typeof (user as Record<string, unknown>).id !== 'string';
+
     const shouldTreatAsExpired =
-      errorName === 'TokenExpiredError' || hasErr || isUserMissing;
+      errorName === 'TokenExpiredError' || hasErr || isUserInvalid;
 
     if (shouldTreatAsExpired) {
       const res = context.switchToHttp().getResponse<Response>();
