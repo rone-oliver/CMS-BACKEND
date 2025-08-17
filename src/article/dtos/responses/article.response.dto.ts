@@ -1,7 +1,7 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
 
 @Exclude()
-export class ArticleResponseData {
+export class ArticleResponseDto {
   @Transform(
     ({ obj }: { obj: { _id?: { toString: () => string } } }) =>
       obj._id?.toString(),

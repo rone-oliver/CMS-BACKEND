@@ -18,7 +18,7 @@ import { SuccessResponseDto } from 'src/common/dtos/base/success-response.dto';
 
 import { ARTICLE_PATHS } from './constants/article-path.constants';
 import { ArticleDto } from './dtos/requests/article.request.dto';
-import { ArticleResponseData } from './dtos/responses/article.response.dto';
+import { ArticleResponseDto } from './dtos/responses/article.response.dto';
 import {
   IArticleService,
   IArticleServiceToken,
@@ -38,13 +38,13 @@ export class ArticleController {
   }
 
   @Get(ARTICLE_PATHS.ME)
-  async findAllByUser(@Req() req: Request): Promise<ArticleResponseData[]> {
+  async findAllByUser(@Req() req: Request): Promise<ArticleResponseDto[]> {
     const user = req.user as TokenPayload;
     return this._articleService.findAllByUser(user.id);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<ArticleResponseData> {
+  async findOne(@Param('id') id: string): Promise<ArticleResponseDto> {
     return this._articleService.findOne(id);
   }
 
@@ -52,7 +52,7 @@ export class ArticleController {
   async create(
     @Req() req: Request,
     @Body() body: ArticleDto,
-  ): Promise<ArticleResponseData> {
+  ): Promise<ArticleResponseDto> {
     const user = req.user as TokenPayload;
     return this._articleService.create({ userId: user.id, ...body });
   }
@@ -62,7 +62,7 @@ export class ArticleController {
     @Req() req: Request,
     @Param('id') id: string,
     @Body() body: ArticleDto,
-  ): Promise<ArticleResponseData> {
+  ): Promise<ArticleResponseDto> {
     const user = req.user as TokenPayload;
     return this._articleService.update(id, { userId: user.id, ...body });
   }

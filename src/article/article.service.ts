@@ -9,7 +9,7 @@ import { Types } from 'mongoose';
 
 import { SuccessResponseDto } from 'src/common/dtos/base/success-response.dto';
 
-import { ArticleResponseData } from './dtos/responses/article.response.dto';
+import { ArticleResponseDto } from './dtos/responses/article.response.dto';
 import {
   IArticleRepository,
   IArticleRepositoryToken,
@@ -24,45 +24,45 @@ export class ArticleService implements IArticleService {
     private readonly _articleRepository: IArticleRepository,
   ) {}
 
-  async findAll(): Promise<ArticleResponseData[]> {
+  async findAll(): Promise<ArticleResponseDto[]> {
     const plain = await this._articleRepository.find();
     if (!plain || plain.length === 0) {
       throw new NotFoundException('Articles not found');
     }
-    return plainToInstance(ArticleResponseData, plain);
+    return plainToInstance(ArticleResponseDto, plain);
   }
 
-  async findOne(id: string): Promise<ArticleResponseData> {
+  async findOne(id: string): Promise<ArticleResponseDto> {
     const plain = await this._articleRepository.findOne({ _id: id });
     if (!plain) {
       throw new NotFoundException('Article not found');
     }
-    return plainToInstance(ArticleResponseData, plain);
+    return plainToInstance(ArticleResponseDto, plain);
   }
 
-  async findAllByUser(userId: string): Promise<ArticleResponseData[]> {
+  async findAllByUser(userId: string): Promise<ArticleResponseDto[]> {
     const plain = await this._articleRepository.find({
       userId: new Types.ObjectId(userId),
     });
     if (!plain || plain.length === 0) {
       throw new NotFoundException('Articles not found');
     }
-    return plainToInstance(ArticleResponseData, plain);
+    return plainToInstance(ArticleResponseDto, plain);
   }
 
-  async create(article: ArticleInputData): Promise<ArticleResponseData> {
+  async create(article: ArticleInputData): Promise<ArticleResponseDto> {
     const articleCreated = await this._articleRepository.create(article);
     if (!articleCreated) {
       throw new InternalServerErrorException('Article creation failed');
     }
     const plain = articleCreated.toObject();
-    return plainToInstance(ArticleResponseData, plain);
+    return plainToInstance(ArticleResponseDto, plain);
   }
 
   async update(
     articleId: string,
     article: ArticleInputData,
-  ): Promise<ArticleResponseData> {
+  ): Promise<ArticleResponseDto> {
     const updatedArticle = await this._articleRepository.findOneAndUpdate(
       { _id: articleId },
       article,
@@ -71,7 +71,7 @@ export class ArticleService implements IArticleService {
       throw new NotFoundException(`Couldn't update the article`);
     }
     const plain = updatedArticle.toObject();
-    return plainToInstance(ArticleResponseData, plain);
+    return plainToInstance(ArticleResponseDto, plain);
   }
 
   async delete(userId: string, articleId: string): Promise<SuccessResponseDto> {

@@ -15,15 +15,15 @@ import { Request, Response } from 'express';
 
 import { AUTH_PATHS } from './constants/auth-paths.constants';
 import {
-  LoginRequestDto,
   RegisterRequestDto,
-} from './dtos/requests/user.requests.dto';
+} from './dtos/requests/register.request.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import {
   IAuthService,
   IAuthServiceToken,
 } from './interfaces/auth.service.interface';
 import { TokenPayload } from './services/token.service';
+import { LoginRequestDto } from './dtos/requests/login.request.dto';
 
 @ApiTags(AUTH_PATHS.ROOT)
 @Controller(AUTH_PATHS.ROOT)

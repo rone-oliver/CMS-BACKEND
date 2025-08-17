@@ -10,10 +10,10 @@ import {
 } from 'src/user/interfaces/user.service.interface';
 import { CreateUserInput } from 'src/user/types/user.types';
 
-import { LoginRequestDto } from './dtos/requests/user.requests.dto';
-import { LoginResponseDto } from './dtos/responses/auth-tokens.response.dto';
+import { LoginResponseDto } from './dtos/responses/login.response.dto';
 import { IAuthService } from './interfaces/auth.service.interface';
 import { TokenPayload, TokenService } from './services/token.service';
+import { LoginRequestDto } from './dtos/requests/login.request.dto';
 
 @Injectable()
 export class AuthService implements IAuthService {
